@@ -16,6 +16,13 @@ const DEFAULT_IGNORE_PATHS = [
     `\\.(jpg|jpeg|png|gif|ico)$`,
 ];
 
+export const readFilesSpec = {
+    name: readFiles.name,
+    description:
+        "Read the contents of all files in the directory, apart from 'ignored' files like node_modules",
+    parameters: {},
+};
+
 export async function readFiles(
     absoluteDir: string,
     ignorePaths: string[] = []

@@ -7,8 +7,8 @@ import path from "path";
 import promptSync from "prompt-sync";
 import { hideBin } from "yargs/helpers";
 import yargs from "yargs/yargs";
-import { readFiles } from "./read-files";
-import { writeFiles } from "./write-files";
+import { readFiles, readFilesSpec } from "./read-files";
+import { writeFiles, writeFilesSpec } from "./write-files";
 
 const prompt = promptSync({ sigint: true });
 dotenv.config();
@@ -56,45 +56,11 @@ if (!existsSync(dir)) {
 }
 const absoluteDir = path.resolve(dir);
 
-const readFilesSpec = {
-    name: readFiles.name,
-    description:
-        "Read the contents of all files in the directory, apart from 'ignored' files like node_modules",
-    parameters: {},
-};
-
-const writeFilesSpec = {
-    name: "writeFiles",
-    description:
-        "Write content to multiple files inside the directory, creating each file if it does not exist.",
-    parameters: {
-        type: "object",
-        properties: {
-            relativePaths: {
-                type: "array",
-                items: {
-                    type: "string",
-                    description:
-                        "The paths of the files to write to, relative to the root of the directory",
-                },
-            },
-            contentsArray: {
-                type: "array",
-                items: {
-                    type: "string",
-                    description: "The contents of the files",
-                },
-            },
-        },
-        required: ["relativePaths", "contentsArray"],
-    },
-};
-
 const openai = new OpenAI({
     apiKey: process.env["OPENAI_API_KEY"] as string,
 });
 
-let conversationHistory: ChatCompletionMessageParam[] = [];
+const conversationHistory: ChatCompletionMessageParam[] = [];
 
 async function getResponse(prompt: ChatCompletionMessageParam, log = false) {
     if (log) console.log("You:", prompt.content);
