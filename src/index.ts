@@ -58,12 +58,12 @@ const openai = new OpenAI({
 
 const conversationHistory: ChatCompletionMessageParam[] = [];
 
-async function getResponse(prompt: ChatCompletionMessageParam) {
-    const response = await submitPrompt(prompt);
+async function handlePrompt(prompt: ChatCompletionMessageParam) {
+    const response = await sendToChatGPT(prompt);
     const responseMessage = response.choices[0].message;
     if (responseMessage.function_call?.name === readFiles.name) {
         const result = await readFiles(absoluteDir, ignorePaths);
-        await submitPrompt({
+        await sendToChatGPT({
             role: "function",
             name: "readFiles",
             content: result,
@@ -71,7 +71,7 @@ async function getResponse(prompt: ChatCompletionMessageParam) {
     } else if (responseMessage.function_call?.name === writeFiles.name) {
         const args = JSON.parse(responseMessage.function_call.arguments);
         writeFiles(absoluteDir, args.relativePaths, args.contentsArray);
-        await submitPrompt({
+        await sendToChatGPT({
             role: "function",
             name: "writeFiles",
             content: "Done",
@@ -85,7 +85,7 @@ async function getResponse(prompt: ChatCompletionMessageParam) {
     }
 }
 
-async function submitPrompt(prompt: ChatCompletionMessageParam) {
+async function sendToChatGPT(prompt: ChatCompletionMessageParam) {
     conversationHistory.push(prompt);
     spinner.start();
     const response = await openai.chat.completions.create({
@@ -110,7 +110,7 @@ async function submitPrompt(prompt: ChatCompletionMessageParam) {
 async function chat() {
     console.log();
     const content = prompt("You: ");
-    await getResponse({
+    await handlePrompt({
         role: "user",
         content,
     });
@@ -125,7 +125,7 @@ const systemPrompts = [
 ];
 
 (async () => {
-    await getResponse({
+    await handlePrompt({
         role: "system",
         content: systemPrompts.join("\n"),
     });
