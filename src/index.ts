@@ -58,8 +58,7 @@ const openai = new OpenAI({
 
 const conversationHistory: ChatCompletionMessageParam[] = [];
 
-async function getResponse(prompt: ChatCompletionMessageParam, log = false) {
-    if (log) console.log("You:", prompt.content);
+async function getResponse(prompt: ChatCompletionMessageParam) {
     const response = await submitPrompt(prompt);
     const responseMessage = response.choices[0].message;
     if (responseMessage.function_call?.name === readFiles.name) {
@@ -126,12 +125,9 @@ const systemPrompts = [
 ];
 
 (async () => {
-    await getResponse(
-        {
-            role: "system",
-            content: systemPrompts.join("\n"),
-        },
-        false
-    );
+    await getResponse({
+        role: "system",
+        content: systemPrompts.join("\n"),
+    });
     await chat();
 })();
