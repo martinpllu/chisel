@@ -1,12 +1,12 @@
 # chisel
 
-Give ChatGPT direct access to read and write your application code
+A command line GPT-4 chat loop that can directly read and write your application code.
 
 ## Status
 
-alpha/proof of concept
+alpha/proof of concept.
 
-Currently this is only suitable for very small apps
+Currently this is only suitable for very small apps.
 
 ## Quick Start
 
