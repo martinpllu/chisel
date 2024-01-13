@@ -1,6 +1,6 @@
 # chisel
 
-A command line GPT-4 chat loop that can directly read and write your application code.
+ A command line GPT-4 chat loop that can directly read and write code on your local filesystem
 
 ## Status
 
