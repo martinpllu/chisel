@@ -20,7 +20,7 @@ The maximum output size is also 4096 tokens, so there may be issues on larger fi
 ```env
 OPENAI_API_KEY=your_api_key_here
 ```
-- (Note that you need to have pay-as-you-go billing and a positive credit balance, e.g. $10)
+- (Note that you need to enable [pay-as-you-go billing](https://lifehacker.com/openai-s-pay-as-you-go-is-the-best-way-to-use-chatgpt-1850318349) and have a positive credit balance, e.g. $10)
 - Start via `npx tsx src/index.ts --directory=/path/to/your/app`
 - `chisel` will start by sending the content of all files in the directory to chatgpt. 
   - Files in `src/read-files.ts#DEFAULT_IGNORE_PATHS` will be ignored, as will any glob paths passed as `--ignorePaths`
