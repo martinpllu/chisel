@@ -32,6 +32,8 @@ export async function readFiles(
     const files = await getFilesRecursive(absoluteDir, allIgnorePaths);
     let combinedContent = "";
     for (const file of files) {
+        const relativePath = path.relative(absoluteDir, file);
+        combinedContent += `@@@@ CONTENTS OF FILE ${relativePath} @@@@\n\n`;
         combinedContent += (await readFile(file, "utf8")) + "\n";
     }
     return combinedContent;
