@@ -6,7 +6,7 @@ A command line GPT-4 chat loop that can directly read and write your application
 
 alpha/proof of concept.
 
-Currently this is only suitable for small apps. The model used, `gpt-4-1106-preview` has a [128k context window](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo) ("300 pages of text"). Larger codebases and longer chats could exceed that window and `chisel` might start forgetting about your code or its job. The CLI logs tokens used as it goes to help keep an eye on this.
+Currently this is only suitable for small apps. The model used, `gpt-4-1106-preview` has a [128k context window](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo) ("300 pages of text"). Larger codebases and longer chats could exceed that window and `chisel` might start forgetting about your code or its job. The CLI logs tokens used to help keep an eye on this.
 
 The maximum output size is also 4096 tokens, so there may be issues on larger files.
 
@@ -20,7 +20,7 @@ The maximum output size is also 4096 tokens, so there may be issues on larger fi
 ```env
 OPENAI_API_KEY=your_api_key_here
 ```
-
+- (Note that you need to have pay-as-you-go billing and a positive credit balance, e.g. $10)
 - Start via `npx tsx src/index.ts --directory=/path/to/your/app`
 - `chisel` will start by sending the content of all files in the directory to chatgpt. 
   - Files in `src/read-files.ts#DEFAULT_IGNORE_PATHS` will be ignored, as will any glob paths passed as `--ignorePaths`
