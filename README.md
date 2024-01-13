@@ -6,7 +6,7 @@
 
 alpha/proof of concept.
 
-Currently this is can only work with small apps, or subdirectories of larger apps. The model used, `gpt-4-1106-preview` has a [128k context window](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo) ("300 pages of text"). Larger codebases and longer chats could exceed that window and `chisel` might start forgetting about your code or its job. The CLI logs the number of tokens used.
+Currently this is can only work with small apps, or subdirectories of larger apps. The model used, `gpt-4-1106-preview` has a [128k token context window](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo) ("300 pages of text"). Larger codebases and longer chats could exceed that window and `chisel` might start forgetting about your code or its job. The CLI logs the number of tokens used.
 
 The maximum output size is also 4096 tokens, so there may be issues on larger files.
 
