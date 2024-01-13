@@ -46,10 +46,6 @@ const dir = options.directory as string;
 const ignorePaths = (options.ignorePaths as string[]) || [];
 const logFullResponses = options.logFullResponses as boolean;
 
-if (!dir) {
-    console.error(`Please specify a directory`);
-    process.exit(1);
-}
 if (!existsSync(dir)) {
     console.error(`Directory ${dir} does not exist`);
     process.exit(1);
