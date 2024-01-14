@@ -1,4 +1,4 @@
-import { writeFileSync } from "fs";
+import { writeFileSync, existsSync, mkdirSync } from "fs";
 import path from "path";
 
 export const writeFilesSpec = {
@@ -43,6 +43,13 @@ export function writeFiles(
                 "One of the paths is outside the directory: " + fullPath
             );
         }
+
+        if (!existsSync(fullPath)) {
+            const directory = path.dirname(fullPath);
+
+            mkdirSync(directory, { recursive: true });
+        }
+
         writeFileSync(fullPath, contentsArray[i]);
     }
 }
